@@ -23,6 +23,8 @@ n == nums.length
 
 Follow-up: Could you solve the problem in linear time and in O(1) space? */
 
+// HashMap Approach:
+
 /**
  * @param {number[]} nums
  * @return {number}
@@ -72,3 +74,45 @@ var majorityElement = function(nums) {
         }
     }
 }
+
+// Sorting Approach
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    // Sorts numbers in array from lowest to highest
+    nums.sort((a, b) => a - b);
+    /* If same items are grouped then majority element will always occupy the 
+    middle position (Math.floor(nums.length / 2)) */
+    return nums[Math.floor(nums.length / 2)];
+};
+
+// Boyer-Moore Voting Algorithm
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let count = 0;
+    // Candidate is the potential candidate for number that is the majority element
+    let candidate = null;
+
+    // For-of loop iterates through values in array
+    for (let num of nums) {
+        /* If the count is 0 then set the candidate as whichever number the loop is on.
+        This means the first number in the array will be the first candidate. And if a candidate goes down to a 
+        count of 0 then the number the loop is currently on will become the new candidate */
+        if (count === 0) {
+            candidate = num;
+        }
+        /* If the number the loop is on is the same as the current candidate then add one, if not then minus one.
+        count += (num === candidate) ? 1 : -1 means if number = candidate is true then do what's before the
+        colon, and if it's false then do what's after the colon, in this case adding 1 or minusing 1 to the count */
+        count += (num === candidate) ? 1 : -1;
+    }
+    // The remaining candidate is the majority element
+    return candidate;
+};
