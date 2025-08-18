@@ -88,10 +88,4 @@ Right pointer = 4th position (12)
 Right pointer is pointing to a non-zero, so number being pointed at by right arrow swaps with number being pointed
 at by left arrow
 Array = [3 2 12 0 0]
-
-
-
-
-
-
 */
