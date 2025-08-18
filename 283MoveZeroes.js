@@ -89,3 +89,17 @@ Right pointer is pointing to a non-zero, so number being pointed at by right arr
 at by left arrow
 Array = [3 2 12 0 0]
 */
+
+var moveZeroes = function(nums) {
+
+    let left = 0;
+    let right = 0;
+
+    while(right < nums.length) {
+        if(nums[right] !==0) {
+            [nums[left], nums[right]] = [nums[right], nums[left]];
+            left++;
+        }
+        right++;
+    }
+}
