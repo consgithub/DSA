@@ -81,3 +81,105 @@ var rotate = function(nums, k) {
         } while (start !== current);
     }
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let n = nums.length;
+    k = k % n;
+    let count = 0;
+
+    for (let start = 0; count < n; start++) {
+        let current = start;
+        let prevNum = nums[start];
+        
+        do {
+            let next = (current + k) % n;
+            let temp = nums[next];
+            nums[next] = prevNum;
+            prevNum = temp;
+            current = next;
+            count++;
+        } while (start !== current);
+    }
+};
+
+// Reverse Approach (Most Optimal)
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let n = nums.length;
+    k = k % n;
+    
+    // Helper function to reverse a portion of the array
+    function reverse (start, end) {
+        /* Makes loop stop when position of left arrow is no longer smaller (further left) than position 
+        of right arrow */
+        while (start < end) {
+            // Saves left value
+            let temp = nums[start];
+            // Puts right value in left position
+            nums[start] = nums[end];
+            // Puts left value in right position
+            nums[end] = temp;
+            // Move inward to next pair e.g. from positions 0 and 4 to positions 1 and 3 in array of length 5
+            start++;
+            end++;
+        }
+    }
+
+    /* E.g. [1,2,3,4,5,6,7] (n = 7) and k = 3
+
+    reverse(0, n-1) = reverse(0, 6) 
+    Iteration 1: Swap nums[0] and nums[6] 
+    Result: [7, 2, 3, 4, 5, 6, 1]  (start=1, end=5) 
+    Iteration 2: Swap nums[1] and nums[5]  
+    Result: [7, 6, 3, 4, 5, 2, 1]  (start=2, end=4) 
+    Iteration 3: Swap nums[2] and nums[4]
+    Result: [7, 6, 5, 4, 3, 2, 1]  (start=3, end=3)
+    Stop: start < end → 3 < 3 → FALSE
+    */
+    reverse(0, n - 1);
+    /* reverse(0, k-1) → reverse(0, 2)
+    Iteration 1: Swap nums[0] and nums[2]
+    Result: [5, 6, 7, 4, 3, 2, 1]  (start=1, end=1)
+    Stop: start < end → 1 < 1 → FALSE */
+    reverse(0, k - 1);
+    /* reverse(k, n-1) → reverse(3, 6)
+    Iteration 1: Swap nums[3] and nums[6]
+    Result: [5, 6, 7, 1, 3, 2, 4]  (start=4, end=5)
+    Iteration 2: Swap nums[4] and nums[5]
+    Result: [5, 6, 7, 1, 2, 3, 4]  (start=5, end=4)
+    Stop: start < end → 5 < 4 → FALSE */
+    reverse(k, n - 1);
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let n = nums.length;
+    k = k % n;
+
+    function reverse(start, end) {
+        while (start < end) {
+            let temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    reverse(0, n - 1);
+    reverse(0, k - 1);
+    reverse(k, n - 1);
+};
