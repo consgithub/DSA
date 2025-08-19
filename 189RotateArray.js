@@ -1,3 +1,5 @@
+// Naive approach: Using extra space
+
 /**
  * @param {number[]} nums
  * @param {number} k
@@ -38,5 +40,44 @@ var rotate = function(nums, k) {
 
     for (let i = 0; i < n; i++) {
         nums[i] = rotated[i];
+    }
+};
+
+// Cyclic Replacements
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let n = nums.length;
+    /* If k is 7 in a array of 5 for example then unnecessary cycles would take place, 7 % 5 = 2, instead of
+    cycling 7 places */
+    k = k % n;
+    let count = 0;
+
+    // Cycle through the array
+    for (let start = 0; count < n; start++) {
+        // Current is the current term being pointed at, starts at 0th term
+        let current = start;
+        // prevNum starts as number at 0th term
+        let prevNum = nums[start];
+
+        do {
+            // next is calculated term k places from where "current" pointer is pointing at
+            let next = (current + k) % n;
+            // temp is number at term calculated by "next"
+            let temp = nums[next];
+            // Number at term calculated by "next" replaced in array by prevNum number
+            nums[next] = prevNum;
+            // prevNum saved as the number calculated by "next"
+            prevNum = temp;
+            // Current term being pointed at becomes the term calculated by "next"
+            current = next;
+            // Count increased by 1
+            count++;
+        // Keeps the loop going until back where we started
+        } while (start !== current);
     }
 };
