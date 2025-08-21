@@ -80,3 +80,111 @@ function isCommonPrefix(strs, length) {
     // If it does start with the prefix then return true. Iteration continues and new low value is calculated.
     return true;
 }
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if (!strs.length) return "";
+
+    let minLen = Math.min(...strs.map(strs => strs.length));
+
+    let low = 1;
+    let high = minLen;
+
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+
+        if (isCommonPrefix(strs, mid)) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return strs[0].substring(0, Math.floor((low + high) / 2));
+};
+
+function isCommonPrefix(strs, length) {
+    let prefix = strs[0].substring(0, length);
+
+    for (let i = 1; i < strs.length; i++) {
+        if (!strs[i].startsWith(prefix)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if (!strs.length) return "";
+
+    let minLen = Math.min(...strs.map(strs => strs.length));
+
+    let low = 0;
+    let high = minLen;
+
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+
+        if (isCommonPrefix(strs, mid)) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return strs[0].substring(0, Math.floor((low + high) / 2));
+};
+
+function isCommonPrefix(strs, length) {
+    let prefix = strs[0].substring(0, length);
+
+    for (let i = 1; i < strs.length; i++) {
+        if (!strs[i].startsWith(prefix)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if (!strs.length) return "";
+
+    let minLen = Math.min(...strs.map(strs => strs.length));
+    let low = 0;
+    let high = minLen;
+
+    while (low <= high) {
+
+        let mid = Math.floor((low + high) / 2)
+
+        if (isCommonPrefix(strs, mid)) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return strs[0].substring(0, Math.floor((low + high) / 2))
+};
+
+function isCommonPrefix(strs, length) {
+    let prefix = strs[0].substring(0, length);
+
+    for (let i = 1; i < strs.length; i++) {
+        if (!strs[i].startsWith(prefix)) {
+            return false;
+        }
+    }
+    return true;
+}
