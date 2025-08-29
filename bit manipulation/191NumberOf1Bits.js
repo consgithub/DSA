@@ -42,3 +42,11 @@ Constraints:
  
 
 Follow up: If this function is called many times, how would you optimize it? */
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    
+};
