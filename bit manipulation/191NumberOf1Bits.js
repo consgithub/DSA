@@ -50,7 +50,50 @@ Follow up: If this function is called many times, how would you optimize it? */
 var hammingWeight = function(n) {
     let count = 0;
     while (n !== 0) {
-        // 
+        /* When you subtract 1 from a number three things happen: All bits to the right of the 
+        rightmost '1' flip from 0 to 1, The rightmost '1' bit flips to 0, All bits to the left remain unchanged.
+        Each time you check for n & n - 1, a 1 gets dropped.
+        
+        E.g. n = 11
+        n = 11 is 1011 in binary.
+
+        Iteration 1:
+        n - 1 = 10
+        n = 10 is 1010 in binary.        
+        n & n - 1 = 1011 & 1010 = 1010 
+        The rightmost 1 has been removed. 1011 -> 1010.
+        n = 10, count = 1.
+
+        Iteration 2:
+        n - 1 = 9
+        n = 9 is 1001 in binary.
+        n & n - 1 = 1010 & 1001 = 1000
+        The rightmost 1 has been removed. 1010 -> 1000.
+        n = 8, count = 2.
+
+        Iteration 3:
+        n - 1 = 7
+        n = 7 is 0111 in binary.
+        n & n - 1 = 1000 & 0111 = 0000
+        The rightmost 1 has been removed. 1000 -> 0000.
+        n = 0, count = 3.
+
+        Result: 3 set bits.
+        
+        */
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
+};
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    let count = 0;
+    while (n !== 0) {
         n = n & (n - 1);
         count++;
     }
