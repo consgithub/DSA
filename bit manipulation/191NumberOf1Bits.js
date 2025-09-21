@@ -48,5 +48,10 @@ Follow up: If this function is called many times, how would you optimize it? */
  * @return {number}
  */
 var hammingWeight = function(n) {
-    
+    let count = 0;
+    while (n !== 0) {
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
 };
