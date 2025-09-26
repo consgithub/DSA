@@ -46,5 +46,10 @@ Can you do it without using any built-in function (i.e., like __builtin_popcount
  * @return {number[]}
  */
 var countBits = function(n) {
-    
+    let res = new Array(n + 1).fill(0);
+    for (let i = 1; i <= n; i++) {
+        // Use the relationship between the current number and the number formed by removing the least significant bit
+        res[i] = res[i & (i - 1)] + 1;
+    }
+    return res;
 };
