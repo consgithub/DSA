@@ -39,15 +39,41 @@ Each integer in nums will appear twice, only two integers will appear once.
 var singleNumber = function(nums) {
     let xor = 0;
     for (let num of nums) {
+        /* Xor all numbers, this will cancel all pairs out, but it will also xor the remaining unique numbers.
+        E.g. for 1, 2, 1, 3, 2, 5. The 1s and 2s will cancel, and then 3 ^ 5 gives 6.
+        3 ^ 5 = 6 working:
+        3 in binary is 011
+        5 in binary is 101
+        XOR returns 1 if bits are different and 0 if bits are same
+        So result is 110, which is 6. */
         xor ^= num;
     }
 
+    /* This finds the rightmost set bit in xor. 
+    To find the negative:
+    E.g. xor = 6, -xor = -6
+    Xor = 00000110 (using 8 bits for clarity)
+    First flip all bits, so 11111001
+    Then add 1, so 11111010
+    Now use &, 00000110 & 11111010 = 00000010, so 010, which is 2. */
     let diffBit = xor & -xor;
     let num1 = 0, num2 = 0;
     for (let num of nums) {
+        /* Divide all numbers into two groups depending on whether they have the set bit
+        E.g. For 1, 2, 1, 3, 2, 5 and diffBit = 2:
+        1 = 001, the 2nd bit from the right is 0, so this goes into group 2
+        2 = 010, the 2nd bit from the right is 1, so this goes into group 1
+        1 = 001, the 2nd bit from the right is 0, so this goes into group 2
+        3 = 011, the 2nd bit from the right is 1, so this goes into group 1
+        2 = 010, the 2nd bit from the right is 1, so this goes into group 1
+        5 = 101, the 2nd bit from the right is 0, so this goes into group 2 */
         if (num & diffBit) {
+            /* Group 1 has the set bit (1 as the 2nd term from the right). 
+            This group will have one pair and one unique number. */
             num1 ^= num;
         } else {
+            /* Group 2 doesn't have the set bit (1 as the 2nd term from the right)
+            This group will have one pair and one unique number. */
             num2 ^= num;
         }
     }
