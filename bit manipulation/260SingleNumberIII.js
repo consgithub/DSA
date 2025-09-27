@@ -77,5 +77,6 @@ var singleNumber = function(nums) {
             num2 ^= num;
         }
     }
+    // Return the unique number from each group
     return [num1, num2];
 };
