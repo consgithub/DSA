@@ -68,7 +68,7 @@ var isIsomorphic = function(s, t) {
         if ((mapS.has(charS) && mapS.get(charS) !== charT) || (mapT.has(charT) && mapT.get(charT) !== charS)) {
             return false;
         }
-        // Map characters from S to T, and T to S
+        // Map characters from S to T, and T to S. These lines run every iteration unless it returns false.
         mapS.set(charS, charT);
         mapT.set(charT, charS);
     }
