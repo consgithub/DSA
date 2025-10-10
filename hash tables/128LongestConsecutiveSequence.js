@@ -34,5 +34,34 @@ Constraints:
  * @return {number}
  */
 var longestConsecutive = function(nums) {
-    
+    // Create a new set
+    let numSet = new Set(nums);
+    // Set longest streak as 0
+    let longestStreak = 0;
+
+    // Cycle through numbers in set in order
+    for (let num of numSet) {
+        /* If a number doesn't have a number one less than we do the process in the if loop, if the number does
+        have a number one less than it then we skip it as it is not the start of a consecutive sequence. */
+        if (!numSet.has(num - 1)) {
+            // Set the number being iterated on as the currentNum
+            let currentNum = num;
+            /* Set the currentStreak as 1 as we're starting working on the first number of a potential consecutive
+            sequence */
+            let currentStreak = 1;
+
+            /* If the set has a number one greater than the currentNum then do the process in the while loop, 
+            this repeats until there is no longer a number one greater than the currentNum */
+            while (numSet.has(currentNum + 1)) {
+                // Add one to the currentNum, and then this number is checked in the while process above
+                currentNum += 1;
+                // Add one to the current streak
+                currentStreak += 1;
+            }
+            // Find the greatest number between the longestStreak (set as 0 at the beginning) and the currentStreak
+            longestStreak = Math.max(longestStreak, currentStreak);
+        }
+    }
+    // Return the longestStreak
+    return longestStreak;
 };
