@@ -49,11 +49,13 @@ var maxArea = function(height) {
         can't go any higher than this even if the other line is taller. The width is just the index number 
         (not value) of right minus left. */
         const currentArea = Math.min(height[left], height[right]) * (right - left);
-        // Recalculte the maximum area as the greater value between the previous maximum area and the current area.
+        // Recalculate the maximum area as the greater value between the previous maximum area and the current area.
         maxArea = Math.max(maxArea, currentArea);
 
         /* If the the height of the left pointer is less than the height of the right pointer then move the
-        left pointer to the right, and if not then move the right pointer to the left. */
+        left pointer to the right, and if not then move the right pointer to the left.
+        This is because moving the taller pointer would only decrease the area as the height would still be
+        limited by the shorter line and the width would decrease. */
         if (height[left] < height[right]) {
             left++;
         } else {
