@@ -48,19 +48,30 @@ var threeSum = function(nums) {
     // Order numbers from smallest to biggest
     nums.sort((a, b) => a - b)
 
-    // Iterate through but only until the number being iterated on is 
+    /* Iterate through but only until the number being iterated on is still less than n - 2 as this allows for a 
+    left and right pointer to fit within the set of numbers */
     for (let i = 0; i < n - 2; i++) {
+        /* If the number being iterated on is beyond the first term and equals the value of the term before
+        then skip past it as it's a duplicate value */
         if (i > 0 && nums[i] === nums[i - 1]) continue;
 
+        /* Let the left pointer initially be one place further in the sequence than the term being iterated on, and
+        let the right pointer initially be at the end of the sequence */
         let left = i + 1;
         let right = n - 1;
 
+        // While the left pointer is to the left of the right pointer
         while (left < right) {
+            /* Let sum be the sum of the values of the term being iterated on, the value of the term being pointed
+            to by the left PointerEvent, and the value of the term being pointed to by the right pointer */
             let sum = nums[i] + nums[left] + nums[right];
 
+            // If sum equals 0, which is what is desired, then push the 3 values that add to 0 to the array
             if (sum === 0) {
                 result.push([nums[i], nums[left], nums[right]]);
 
+                /* While the left pointer is to the left of the right pointer and the next number in the sequence
+                is the same as the one being iterated on, move the left pointer to the right */
                 while (left < right && nums[left] === nums[left + 1]) left++;
                 while (left < right && nums[right] === nums[right - 1]) right--;
 
