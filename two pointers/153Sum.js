@@ -63,7 +63,7 @@ var threeSum = function(nums) {
         // While the left pointer is to the left of the right pointer
         while (left < right) {
             /* Let sum be the sum of the values of the term being iterated on, the value of the term being pointed
-            to by the left PointerEvent, and the value of the term being pointed to by the right pointer */
+            to by the left pointer, and the value of the term being pointed to by the right pointer */
             let sum = nums[i] + nums[left] + nums[right];
 
             // If sum equals 0, which is what is desired, then push the 3 values that add to 0 to the array
@@ -71,19 +71,29 @@ var threeSum = function(nums) {
                 result.push([nums[i], nums[left], nums[right]]);
 
                 /* While the left pointer is to the left of the right pointer and the next number in the sequence
-                is the same as the one being iterated on, move the left pointer to the right */
+                is the same as the current left pointer value, move the left pointer to the right */
                 while (left < right && nums[left] === nums[left + 1]) left++;
+                /* While the left pointer is to the left of the right pointer and the previous number in the 
+                sequence is the same as the current right pointer value, move the right pointer to the left */
                 while (left < right && nums[right] === nums[right - 1]) right--;
 
+                /* The left and right pointer must be moved once a zero has been found to move onto the next 
+                set of numbers, including in the case of a duplicate as the above code only moves the 
+                pointers along to the next duplicate, not past it */
                 left++;
                 right--;
+                /* Now for the cases of the sum not equalling 0. If the sum is below 0 then move the left pointer
+                to the right. This will increase the sum as the numbers are in ascending order. */
             } else if (sum < 0) {
                 left++;
+                /* If the sum is above 0 then move the right pointer to the left. This will decrease the sum as
+                the numbers are in ascending order. */
             } else {
-                right --;
+                right--;
             }
         }
     }
+    // Return the result
     return result;
 };
 
@@ -92,5 +102,34 @@ var threeSum = function(nums) {
  * @return {number[][]}
  */
 var threeSum = function(nums) {
-    
+    let result = [];
+    let n = nums.length;
+
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < n - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+        let left = i + 1;
+        let right = n - 1;
+
+        while (left < right) {
+            let sum = nums[i] + nums[left] + nums[right];
+
+            if (sum === 0) {
+                result.push([nums[i], nums[left], nums[right]]);
+
+                while (left < right && nums[left] === nums[left + 1]) left++;
+                while (left < right && nums[right] === nums[right - 1]) right--;
+
+                left++;
+                right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+    return result;
 };
