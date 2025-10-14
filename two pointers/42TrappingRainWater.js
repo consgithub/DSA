@@ -45,10 +45,11 @@ var trap = function(height) {
                 leftMax = height[left];
                 /* If the height at the left pointer is less than leftMax then calculate the waterTrapped.
                 The water trapped is cleverly calculated by ignoring what's on the right and just using the fact
-                that if the leftMax is to the left of the height at the left pointer then there must be some
-                water trapped at the point of the left pointer, no matter what is to the right, whether there is
-                more water trapped there or a high wall. We're only calculating the amount of water trapped at
-                that value of height (at that one number in the array). */
+                that if the leftMax is to the left of the height (leftMax is truly only a value not a position, 
+                but for the sake of explanation) at the left pointer then there must be some water trapped at 
+                the point of the left pointer, no matter what is to the right, whether there is more water 
+                trapped there or a high wall. We're only calculating the amount of water trapped at that 
+                value of height (at that one number in the array). */
             } else {
                 waterTrapped += leftMax - height[left];
             }
@@ -63,10 +64,11 @@ var trap = function(height) {
                 rightMax = height[right];
                 /* If the height at the right pointer is less than rightMax then calculate the waterTrapped.
                 The water trapped is cleverly calculated by ignoring what's on the left and just using the fact
-                that if the rightMax is to the right of the height at the right pointer then there must be some
-                water trapped at the point of the right pointer, no matter what is to the left, whether there is
-                more water trapped there or a high wall. We're only calculating the amount of water trapped at
-                that value of height (at that one number in the array). */
+                that if the rightMax is to the right of the height (rightMax is truly only a value not a position, 
+                but for the sake of explanation) at the right pointer then there must be some water trapped at 
+                the point of the right pointer, no matter what is to the left, whether there is more water trapped 
+                there or a high wall. We're only calculating the amount of water trapped at that value of 
+                height (at that one number in the array). */
             } else {
                 waterTrapped += rightMax - height[right];
             }
