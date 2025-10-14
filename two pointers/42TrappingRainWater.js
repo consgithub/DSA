@@ -26,17 +26,27 @@ n == height.length
  * @return {number}
  */
 var trap = function(height) {
+    // If the height is null, undefined, or the length of the array is 0, then return 0.
     if (height == null || height.length === 0) return 0;
+    /* Left is the left pointer, right is the right pointer, leftMax is the highest point we've seen from the
+    start of the array up to and including the left pointer, rightMax is the highest point we've seen from the
+    end of the array up to and including the right pointer, and waterTrapped is the amount of squares with 
+    water trapped. */
     let left = 0, right = height.length - 1, leftMax = 0, rightMax = 0, waterTrapped = 0;
 
+    // While the left pointer is to the left of the right pointer.
     while (left < right) {
+        // If the height at the left pointer is less than the height at the right pointer.
         if (height[left] < height[right]) {
+            // If the height at the left pointer is greater than or equal to leftMax
             if (height[left] >= leftMax) {
+                // Set leftMax as
                 leftMax = height[left];
             } else {
                 waterTrapped += leftMax - height[left];
             }
             left++;
+            // If the height at the left pointer isn't less than the height at the right pointer
         } else {
             if (height[right] >= rightMax) {
                 rightMax = height[right];
