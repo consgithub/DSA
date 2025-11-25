@@ -30,5 +30,22 @@ Constraints:
  * @return {number}
  */
 var subarraySum = function(nums, k) {
+    let count = 0;
+    let currentSum = 0;
+    const prefixSumCount = new Map();
+    prefixSumCount.set(0, 1);
+
+    for (let num of nums) {
+        currentSum += num;
+
+        let neededSum =  currentSum - k;
+
+        if (prefixSumCount.has(neededSum)) {
+            count += prefixSumCount.get(neededSum);
+        }
+
+        prefixSumCount.set(currentSum, (prefixSumCount.get(currentSum) || 0) + 1);
+    }
     
+    return count;
 };
