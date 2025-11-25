@@ -30,9 +30,15 @@ Constraints:
  * @return {number}
  */
 var subarraySum = function(nums, k) {
+    // Counter for amount of subarrays that add to k
     let count = 0;
+    // Prefix sum at current position
     let currentSum = 0;
+    // For this HashMap, key = prefix sum value, valaue = frequency of that prefix sum
     const prefixSumCount = new Map();
+    /* Initialise with prefix sum of 0 appearing once, this handles cases where a subarray starting from 0 sums to
+    k, e.g. if nums = [3, 2] and k = 5, when currentSum = 5, we need neededSum = 0 to exist because:
+     */
     prefixSumCount.set(0, 1);
 
     for (let num of nums) {
@@ -46,6 +52,6 @@ var subarraySum = function(nums, k) {
 
         prefixSumCount.set(currentSum, (prefixSumCount.get(currentSum) || 0) + 1);
     }
-    
+
     return count;
 };
