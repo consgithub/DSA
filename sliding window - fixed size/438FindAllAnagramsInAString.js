@@ -33,27 +33,40 @@ s and p consist of lowercase English letters.
  * @return {number[]}
  */
 var findAnagrams = function(s, p) {
+    // Create result array
     const result = [];
     if (s.length < p.length) return result;
 
+    // Create frequency arrays for p and s
     const pCount = new Array(26).fill(0);
     const sCount = new Array(26).fill(0);
 
+    /* Count the frequency that each character appears in p and s (not the whole of s, just p.length of s 
+    (first window of s)) */
     for (let i = 0; i < p.length; i++) {
         pCount[p.charCodeAt(i) - 97]++;
         sCount[s.charCodeAt(i) - 97]++;
     }
 
+    // Loop through all valid window positions in s
     for (let i = 0; i <= s.length - p.length; i++) {
+        // If the arrays have the same frequency of the same characters then push the current index to the result.
         if (arraysEqual(pCount, sCount)) result.push(i);
 
+        // Check if there's still space in the array to move the slider to the right one place
         if (i + p.length < s.length) {
+            // Remove the character at the start of the slider before the slider moves
             sCount[s.charCodeAt(i) - 97]--;
+            /* Add the first character after the slider, this marks the movement of the slider one place. 
+            i + p.length is the current index plus whatever the length of p is, this will always be the first
+            character after the slider. */
             sCount[s.charCodeAt(i + p.length) - 97]++;
         }
     }
+    // Return the result
     return result;
 
+    // Function to check if the arrays are equal
     function arraysEqual(a, b) {
         for (let i = 0; i < 26; i++) if (a[i] !== b[i]) return false;
         return true;
